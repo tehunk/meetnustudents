@@ -32,7 +32,7 @@
         <div id="output">
             <div id="top_match">
                 <h2>Top Matches</h2>
-                <p id="loading">Loading...</p>
+                <p id="loading">Loading......</p>
                 <div id="outputList"></div>
             </div>
             <button id="back" class="formSize">Back</button>
