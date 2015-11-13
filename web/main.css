@@ -1,0 +1,49 @@
+body {
+    font-family:"century gothic", sans-serif;
+    background-color:#d7b8ff;
+}
+
+h1 {
+    color:white;
+    font-family: "arial narrow";
+    font-size:50px;
+    text-align: center;
+}
+
+form {
+    text-align:center;
+}
+
+.title {
+    background-color:#482A80 ;
+    padding-top:5px;
+    padding-bottom:5px;
+    margin-bottom: 20px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+#output{
+    display:none;
+}
+
+@media screen and (max-width: 1080px) {
+    h1 {
+        font-size:70px;
+    }
+    h2 {
+        font-size: 50px;
+    }
+    .title {
+        margin-bottom: 100px;
+    }
+    .formSize {
+        font-size: 40px;
+    }
+    .formMargin {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
