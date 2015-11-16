@@ -29,6 +29,11 @@ form {
     display:none;
 }
 
+#wordCloud{
+    background-color:white;
+    margin: 100px;
+}
+
 @media screen and (max-width: 1080px) {
     h1 {
         font-size:70px;
