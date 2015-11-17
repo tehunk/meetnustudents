@@ -31,12 +31,17 @@ $(document).ready(function () {
             var tHandle = matchJson.twitterHandle;
             var link = document.createElement("a");
             link.href = "https://twitter.com/"+tHandle;
-            link.innerHTML = "@" + tHandle;
+            link.innerHTML = "Info of: @" + tHandle;
             $("#outputList").append(link);
             $("#outputList").append("<p>Words: " + matchJson.word +  "</p>");
         });
     };
     error_message = function () {
         alert("Failed");
+    };
+    
+    random_generator = function (max) {
+        randNum = Math.floor(Math.random()*max+1);
+        return randNum;
     };
 });

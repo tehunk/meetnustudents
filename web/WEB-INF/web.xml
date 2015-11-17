@@ -4,9 +4,17 @@
         <servlet-name>GetMatch</servlet-name>
         <servlet-class>servlet.GetMatch</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetIndividual</servlet-name>
+        <servlet-class>servlet.GetIndividual</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetMatch</servlet-name>
         <url-pattern>/GetMatch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetIndividual</servlet-name>
+        <url-pattern>/GetIndividual</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

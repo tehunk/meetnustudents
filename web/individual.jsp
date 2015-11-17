@@ -18,8 +18,7 @@
         <div class="title">
             <h1>Find an NU Student <img src="twitter-xxl.png" style="height:60px;"></h1>
         </div>
-        <div id="wordCloud">
-
-        </div>
+        <div></div>
+        <div id="wordCloud"></div>
     </body>
 </html>

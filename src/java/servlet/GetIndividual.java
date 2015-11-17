@@ -35,8 +35,10 @@ public class GetIndividual extends HttpServlet {
         String tHandle = request.getParameter("tHandle");
         
         WordCount wc = new WordCount();
-        String results = wc.produceCount(tHandle);
+        String[] indInfo = wc.produceCount(tHandle);
         
+        TweetInfoJson json = new TweetInfoJson ();
+        String results = json.getJsonData(indInfo);
         response.getWriter().write(results);
     }
 

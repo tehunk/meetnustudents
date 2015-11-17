@@ -34,8 +34,10 @@
                 <h2>Top Matches</h2>
                 <p id="loading">Loading......</p>
                 <div id="outputList"></div>
+                <!--<a href="individual.jsp">Word Cloud</a>-->
             </div>
             <button id="back" class="formSize">Back</button>
-        </div>		
+        </div>
+        
     </body>
 </html>

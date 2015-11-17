@@ -18,7 +18,8 @@ $(document).ready(function () {
         var word = document.createElement("div");
         word.innerHTML = words[i];
         word.style.opacity = counts[i]/30;
-        word.style.fontSize = counts[i]*30+"%";
+        word.style.fontSize = counts[i]*30+50+"%";
+        word.style.float = "left";
         $("#wordCloud").append(word);
     }
 
