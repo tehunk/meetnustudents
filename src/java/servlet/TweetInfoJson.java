@@ -26,7 +26,23 @@ public class TweetInfoJson {
 
         //convert to String
         jsonData = twInfo.toString();
-        System.out.println("JSON whole (MatchesJson.java): "+ jsonData);
+        System.out.println("JSON each Info(TweetInfoJson.java): "+ jsonData);
+        
+        return jsonData;
+    }
+    
+    public String getJasonData(String[][] infos) throws JSONException, IOException {
+        
+
+        String jsonData = "[";
+        
+        for (String[] i : infos) {
+            String each = getJsonData(i);
+            jsonData = jsonData + each + ",";
+        }
+        
+        jsonData = jsonData.substring(0, jsonData.length()-1) + "]";
+        System.out.println("JSON array Info(TweetInfoJson.java): "+ jsonData);
         
         return jsonData;
     }

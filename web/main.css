@@ -3,6 +3,13 @@ body {
     background-color:#d7b8ff;
 }
 
+header {
+    background-color:#482A80 ;
+    padding-top:5px;
+    padding-bottom:5px;
+    //margin-bottom: 20px;
+}
+
 h1 {
     color:white;
     font-family: "arial narrow";
@@ -14,24 +21,36 @@ form {
     text-align:center;
 }
 
-.title {
-    background-color:#482A80 ;
-    padding-top:5px;
-    padding-bottom:5px;
-    margin-bottom: 20px;
-}
-
 .name {
     font-weight: bold;
+}
+
+.left_padding{
+    padding-left: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.wordCloud {
+    clear: both;
+}
+
+.expandable {
+    clear: both;
 }
 
 #output{
     display:none;
 }
 
-#wordCloud{
-    background-color:white;
-    margin: 100px;
+#myWordCloud{
+    //background-color:white;
+    //margin: 100px;
+
+}
+
+#top_match{
+    clear: both;
 }
 
 @media screen and (max-width: 1080px) {
@@ -42,7 +61,7 @@ form {
         font-size: 50px;
     }
     .title {
-        margin-bottom: 100px;
+        //margin-bottom: 100px;
     }
     .formSize {
         font-size: 40px;

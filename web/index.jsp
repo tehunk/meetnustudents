@@ -13,12 +13,14 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="main.js"></script>
+        <script src="require.js"></script>
+        <script src="d3-cloud/index.js"></script>
     </head>
 
     <body>
-        <div class="title">
-            <h1>Find an NU Student <img src="twitter-xxl.png" style="height:60px;"></h1></div>
-        <div id="input">
+        <header class="title">
+            <h1>Find an NU Student <img src="twitter-xxl.png" style="height:60px;"></h1></header>
+        <section id="input">
             <form id="matchForm">
                 <p class = "formMargin">
                     <span class="formSize">Your Twitter Handle: @</span>
@@ -28,16 +30,27 @@
                     <input class="formSize" type="submit" value="Find Your Matches!">
                 </p>
             </form>
-        </div>
-        <div id="output">
+        </section>
+        <section id="output">
+            <div id="myInfo">
+                <h2>My Twitter</h2>
+                <p class="loading">Loading......</p>
+                <div class="left_padding">
+                    <p id="myTopMentions"></p>
+                    <p id="myTopHashtags"></p>
+                    <p>Word Cloud</p>
+                    <div id="myWordCloud" class="wordCloud"></div>
+                </div>
+            </div>
             <div id="top_match">
+                <hr>
                 <h2>Top Matches</h2>
-                <p id="loading">Loading......</p>
-                <div id="outputList"></div>
-                <!--<a href="individual.jsp">Word Cloud</a>-->
+                <p class="loading">Loading......</p>
+                <div id="outputList">
+                </div>
             </div>
             <button id="back" class="formSize">Back</button>
-        </div>
-        
+        </section>
+
     </body>
 </html>
