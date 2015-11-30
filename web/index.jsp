@@ -13,8 +13,8 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="main.js"></script>
-        <script src="require.js"></script>
-        <script src="d3-cloud/index.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="d3.layout.cloud.js"></script>
     </head>
 
     <body>
@@ -35,10 +35,10 @@
             <div id="myInfo">
                 <h2>My Twitter</h2>
                 <p class="loading">Loading......</p>
-                <div class="left_padding">
+                <div class="left_padding" style="display: block">
                     <p id="myTopMentions"></p>
                     <p id="myTopHashtags"></p>
-                    <p>Word Cloud</p>
+                    <p id="myTopWords"></p>
                     <div id="myWordCloud" class="wordCloud"></div>
                 </div>
             </div>
@@ -47,6 +47,26 @@
                 <h2>Top Matches</h2>
                 <p class="loading">Loading......</p>
                 <div id="outputList">
+                    <h3 class="expandable"></h3>
+                    <div id="match_0" class="left_padding">
+                        <p></p><p></p><p></p>
+                    </div>
+                    <h3 class="expandable"></h3>
+                    <div id="match_1" class="left_padding">
+                        <p></p><p></p><p></p>
+                    </div>
+                    <h3 class="expandable"></h3>
+                    <div id="match_2" class="left_padding">
+                        <p></p><p></p><p></p>
+                    </div>
+                    <h3 class="expandable"></h3>
+                    <div id="match_3" class="left_padding">
+                        <p></p><p></p><p></p>
+                    </div>
+                    <h3 class="expandable"></h3>
+                    <div id="match_4" class="left_padding">
+                        <p></p><p></p><p></p>
+                    </div>
                 </div>
             </div>
             <button id="back" class="formSize">Back</button>

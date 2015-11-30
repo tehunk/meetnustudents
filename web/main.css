@@ -21,6 +21,10 @@ form {
     text-align:center;
 }
 
+svg {
+    background-color: white;
+}
+
 .name {
     font-weight: bold;
 }
@@ -29,6 +33,7 @@ form {
     padding-left: 50px;
     padding-left: 100px;
     padding-right: 100px;
+    display: none;
 }
 
 .wordCloud {

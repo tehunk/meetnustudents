@@ -26,8 +26,7 @@ $(document).ready(function () {
     });
 
     $(".expandable").click(function () {
-        var id = $(this).html();
-        $("#" + id).toggle('slow');
+        $(this).next().toggle('slow');
     });
 
     show_response = function (json) {
@@ -37,55 +36,73 @@ $(document).ready(function () {
         var myInfo = json[1];
         var matchInfo = json[2].matchInfo;
 
-        $("#myTopMentions").html("Top Mentions: " + myInfo.mentions);
-        $("#myTopHashtags").html("Top Hashtags: " + myInfo.hashtags);
-        word_cloud_generator (document.getElementById("myWordCloud"), myInfo);
+        $("#myTopMentions").html("<b>Top Mentions: </b>" + myInfo.mentions);
+        $("#myTopHashtags").html("<b>Top Hashtags: </b>" + myInfo.hashtags);
+        $("#myTopWords").html("<b>Word Cloud</b>");
+        var temp = document.getElementById("myWordCloud");
+        word_cloud_generator(document.getElementById("myWordCloud"), myInfo);
 
         $.each(match, function (index, matchJson) {
             var tHandle = matchJson.twitterHandle;
-            var h3 = document.createElement("h3");
-            h3.setAttribute("class", "expandable");
-            h3.innerHTML = tHandle;
-            $("#outputList").append(h3);
+            var matchDiv = $("#match_" + index);
 
-            var div = document.createElement("div");
-            div.setAttribute("id", tHandle);
-            div.setAttribute("class", "left_padding");
-            //div.setAttribute("style", "display: none;");
-            $("#outputList").append(div);
-            var p = document.createElement("p");
-            p.innerHTML = "Top Mentions: " + matchInfo[index].mentions;
-            div.appendChild(p);
-            p = document.createElement("p");
-            p.innerHTML = "Top HashTags: " + matchInfo[index].hashtags;
-            div.appendChild(p);
-            p = document.createElement("p");
-            p.innerHTML = "Word Cloud";
-            div.appendChild(p);
-            
+            $(matchDiv).prev().html(tHandle);
+
+            $(matchDiv).children("p").first().html("<b>Top Mentions: </b>" + matchInfo[index].mentions);
+            $(matchDiv).children("p").first().next().html("<b>Top HashTags: </b>" + matchInfo[index].hashtags);
+            $(matchDiv).children("p").last().html("<b>Word Cloud</b>");
+
             var wordCloud = document.createElement("div");
-            wordCloud.setAttribute("id", tHandle+"WordCloud");
+            wordCloud.setAttribute("id", tHandle + "WordCloud");
             wordCloud.setAttribute("class", "wordCloud");
-            div.appendChild(wordCloud);
+            $(matchDiv).append(wordCloud);
             word_cloud_generator(wordCloud, matchInfo[index]);
         });
     };
-    
-    word_cloud_generator = function (element, info) {
-        
-        var words = info.topWords.split(",");
-        var counts = info.wordsCount.split(",");
 
-        var i = 0;
-        for (i = 0; i < words.length; i++) {
-            var word = document.createElement("div");
-            word.innerHTML = words[i];
-            word.style.opacity = parseInt(counts[i]) / words.length + 0.5;
-            word.style.fontSize = parseInt(counts[i]) * 20 + 50 + "%";
-            word.style.float = "left";
-            element.appendChild(word);
+    word_cloud_generator = function (element, info) {
+
+        var wordList = info.topWords.split(",");
+        var counts = info.wordsCount.split(",");
+        var color = d3.scale.linear()
+                .domain([0, 1, 2, 3, 4, 5, 6, 10, 15, 20, 100])
+                .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
+        d3.layout.cloud().size([800, 300])
+                .words(wordList.map(function (t, index) {
+                    return {text: t, size: parseInt(counts[index])*3};
+                }))
+                .rotate(0)
+                .fontSize(function (d) {
+                    return d.size;
+                })
+                .on("end", draw)
+                .start();
+        function draw(words) {
+            d3.select(element).append("svg")
+                    .attr("width", 850)
+                    .attr("height", 350)
+                    .attr("class", "wordcloud")
+                    .append("g")
+                    // without the transform, words words would get cutoff to the left and top, they would
+                    // appear outside of the SVG area
+                    .attr("transform", "translate(320,200)")
+                    .selectAll("text")
+                    .data(words)
+                    .enter().append("text")
+                    .style("font-size", function (d) {
+                        return d.size + "px";
+                    })
+                    .style("fill", function (d, i) {
+                        return color(i);
+                    })
+                    .attr("transform", function (d) {
+                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                    })
+                    .text(function (d) {
+                        return d.text;
+                    });
         }
-        
+
     };
     error_message = function () {
         alert("Failed");
