@@ -8,3 +8,5 @@
 /src/java/servlet/WordCount.java
 /web/d3-cloud/
 /web/d3.layout.cloud.js
+/src/java/servlet/GetMostFavoritedTweets.java
+/src/java/servlet/MostFavoritedTweets.java

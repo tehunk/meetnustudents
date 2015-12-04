@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
+    $("#tHandle").val("");
     $("#matchForm").submit(function (event) {
         $("#output").show();
         $("#input").hide();
-
         event.preventDefault();
         var handle = $(this).find("input[name='tHandle']").val();
         $.ajax({
@@ -16,60 +16,72 @@ $(document).ready(function () {
             error: error_message
         });
     });
-
     $("#back").click(function () {
         $("#output").hide();
         $("#input").show();
         $("#tHandle").val("");
-        $("#outputList").empty();
+        $(".wordCloud").empty();
+        $("#myTopMentions").empty();
+        $("#myTopHashtags").empty();
+        $("#myTopWords").empty();
+        $(".expandable").children("img").removeAttr("alt src height width");
+        $(".expandable").children().empty();
         $(".loading").show();
     });
-
     $(".expandable").click(function () {
         $(this).next().toggle('slow');
     });
-
     show_response = function (json) {
         $(".loading").hide();
-
         var match = json[0].match;
         var myInfo = json[1];
-        var matchInfo = json[2].matchInfo;
+        var tweetInfo = json[2].tweetInfo;
+        var matchInfo = json[3].matchInfo;
 
         $("#myTopMentions").html("<b>Top Mentions: </b>" + myInfo.mentions);
         $("#myTopHashtags").html("<b>Top Hashtags: </b>" + myInfo.hashtags);
         $("#myTopWords").html("<b>Word Cloud</b>");
-        var temp = document.getElementById("myWordCloud");
         word_cloud_generator(document.getElementById("myWordCloud"), myInfo);
 
         $.each(match, function (index, matchJson) {
             var tHandle = matchJson.twitterHandle;
             var matchDiv = $("#match_" + index);
+            $(matchDiv).prev().children("h3").html(tHandle); //put twitter name in the <h3> tag, previous of <div>
+            $(matchDiv).prev().children("img").attr({
+                alt: tHandle,
+                src: matchInfo[index].picURL,
+                height: "100",
+                width: "100"
+            });
+            $(matchDiv).prev().children("p").html(matchInfo[index].description);
 
-            $(matchDiv).prev().html(tHandle);
-
-            $(matchDiv).children("p").first().html("<b>Top Mentions: </b>" + matchInfo[index].mentions);
-            $(matchDiv).children("p").first().next().html("<b>Top HashTags: </b>" + matchInfo[index].hashtags);
+            $(matchDiv).children("a").first()
+                    .html("Go to Twitter")
+                    .attr("href", "http://twitter.com/" + tHandle);
+            $(matchDiv).children("p").first()
+                    .html("<b>Top Mentions: </b>" + tweetInfo[index].mentions)
+                    .next().html("<b>Top HashTags: </b>" + tweetInfo[index].hashtags)
+                    .next().html("<b>Recent Tweets: </b>" + matchInfo[index].tweet_1);
             $(matchDiv).children("p").last().html("<b>Word Cloud</b>");
-
-            var wordCloud = document.createElement("div");
-            wordCloud.setAttribute("id", tHandle + "WordCloud");
+            var wordCloud = document.getElementById("wordCloud_" + index);
             wordCloud.setAttribute("class", "wordCloud");
-            $(matchDiv).append(wordCloud);
-            word_cloud_generator(wordCloud, matchInfo[index]);
+            word_cloud_generator(wordCloud, tweetInfo[index]);
         });
     };
-
     word_cloud_generator = function (element, info) {
 
         var wordList = info.topWords.split(",");
-        var counts = info.wordsCount.split(",");
+        var counts = info.wordsCount.split(",").map(Number);
+        var stdv = standardDeviation(counts);
         var color = d3.scale.linear()
                 .domain([0, 1, 2, 3, 4, 5, 6, 10, 15, 20, 100])
                 .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
         d3.layout.cloud().size([800, 300])
                 .words(wordList.map(function (t, index) {
-                    return {text: t, size: parseInt(counts[index])*3};
+                    return {
+                        text: t,
+                        size: parseInt( 10*counts[index]/stdv + 5)
+                    };
                 }))
                 .rotate(0)
                 .fontSize(function (d) {
@@ -107,9 +119,34 @@ $(document).ready(function () {
     error_message = function () {
         alert("Failed");
     };
-
     random_generator = function (max) {
-        randNum = Math.floor(Math.random() * max + 1);
+        var randNum = Math.floor(Math.random() * max + 1);
         return randNum;
+    };
+    
+    // Standard Deviation by Derick Bailey.
+    // http://derickbailey.com/2014/09/21/calculating-standard-deviation-with-array-map-and-array-reduce-in-javascript/
+    standardDeviation = function (values) {
+        var avg = average(values);
+
+        var squareDiffs = values.map(function (value) {
+            var diff = value - avg;
+            var sqrDiff = diff * diff;
+            return sqrDiff;
+        });
+
+        var avgSquareDiff = average(squareDiffs);
+
+        var stdDev = Math.sqrt(avgSquareDiff);
+        return stdDev;
+    };
+
+    average = function (data) {
+        var sum = data.reduce(function (sum, value) {
+            return sum + value;
+        }, 0);
+
+        var avg = sum / data.length;
+        return avg;
     };
 });

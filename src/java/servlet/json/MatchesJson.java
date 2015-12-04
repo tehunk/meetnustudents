@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
+package servlet.json;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,8 +35,8 @@ public class MatchesJson {
         }
         //convert to String
         jsonData = TopMatches.toString();
-        System.out.println("JSON whole (MatchesJson.java): "+ jsonData);
         
+        System.out.println("JSON whole (MatchesJson.java): "+ jsonData);
         return jsonData;
     }
 }

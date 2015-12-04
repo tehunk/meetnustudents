@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
+package servlet.json;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +13,10 @@ import java.io.IOException;
  * @author TaeHun
  */
 public class TweetInfoJson {
-    
+    /*
+        the user info calls getJsonData(String [])
+        the match info calls getJsonData(String [][])
+    */
     public String getJsonData(String[] info) throws JSONException, IOException {
 
         JSONObject twInfo = new JSONObject();
@@ -31,19 +34,17 @@ public class TweetInfoJson {
         return jsonData;
     }
     
-    public String getJasonData(String[][] infos) throws JSONException, IOException {
+    public String getJsonData(String[][] infos) throws JSONException, IOException {
         
-
+        //construct a json array manually .        
         String jsonData = "[";
-        
         for (String[] i : infos) {
-            String each = getJsonData(i);
+            String each = getJsonData(i);   //call the method above.
             jsonData = jsonData + each + ",";
         }
-        
         jsonData = jsonData.substring(0, jsonData.length()-1) + "]";
-        System.out.println("JSON array Info(TweetInfoJson.java): "+ jsonData);
         
+        System.out.println("JSON array Info(TweetInfoJson.java): "+ jsonData);
         return jsonData;
     }
 }

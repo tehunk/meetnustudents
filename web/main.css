@@ -17,12 +17,22 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    margin: 5px;
+    display: inline;
+}
+
 form {
     text-align:center;
 }
 
+img {
+    float: left;
+}
+
 svg {
     background-color: white;
+    border-radius: 175px;
 }
 
 .name {
@@ -30,9 +40,7 @@ svg {
 }
 
 .left_padding{
-    padding-left: 50px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 105px;
     display: none;
 }
 
@@ -42,16 +50,20 @@ svg {
 
 .expandable {
     clear: both;
+    margin-top: 5px;
+    height: 100px;
+}
+
+.description{
+    margin-bottom: 0px;
+    margin-left: 105px;
+    margin-top: 5px;
+    height: 70px;
+    overflow: auto;
 }
 
 #output{
     display:none;
-}
-
-#myWordCloud{
-    //background-color:white;
-    //margin: 100px;
-
 }
 
 #top_match{
